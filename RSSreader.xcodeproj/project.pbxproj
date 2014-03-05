@@ -22,6 +22,10 @@
 		AF0934EB18912BA80097368B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF0934CF18912BA70097368B /* CoreData.framework */; };
 		AF0934F318912BA80097368B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF0934F118912BA80097368B /* InfoPlist.strings */; };
 		AF0934F518912BA80097368B /* RSSreaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0934F418912BA80097368B /* RSSreaderTests.m */; };
+		AF3BE20F18C606DC00AADFAB /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3BE20E18C606DC00AADFAB /* Storyboard.storyboard */; };
+		AF3BE21218C6070400AADFAB /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3BE21118C6070400AADFAB /* MainViewController.m */; };
+		AF3BE21518C7128C00AADFAB /* ScreenOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3BE21418C7128C00AADFAB /* ScreenOneViewController.m */; };
+		AF3BE21818C75CC900AADFAB /* ScreenAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3BE21718C75CC900AADFAB /* ScreenAddViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,13 @@
 		AF0934F018912BA80097368B /* RSSreaderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSSreaderTests-Info.plist"; sourceTree = "<group>"; };
 		AF0934F218912BA80097368B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AF0934F418912BA80097368B /* RSSreaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSSreaderTests.m; sourceTree = "<group>"; };
+		AF3BE20E18C606DC00AADFAB /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		AF3BE21018C6070400AADFAB /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		AF3BE21118C6070400AADFAB /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		AF3BE21318C7128C00AADFAB /* ScreenOneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenOneViewController.h; sourceTree = "<group>"; };
+		AF3BE21418C7128C00AADFAB /* ScreenOneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenOneViewController.m; sourceTree = "<group>"; };
+		AF3BE21618C75CC900AADFAB /* ScreenAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenAddViewController.h; sourceTree = "<group>"; };
+		AF3BE21718C75CC900AADFAB /* ScreenAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenAddViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +128,13 @@
 			children = (
 				AF0934DA18912BA70097368B /* AppDelegate.h */,
 				AF0934DB18912BA70097368B /* AppDelegate.m */,
+				AF3BE21018C6070400AADFAB /* MainViewController.h */,
+				AF3BE21118C6070400AADFAB /* MainViewController.m */,
+				AF3BE20E18C606DC00AADFAB /* Storyboard.storyboard */,
+				AF3BE21318C7128C00AADFAB /* ScreenOneViewController.h */,
+				AF3BE21418C7128C00AADFAB /* ScreenOneViewController.m */,
+				AF3BE21618C75CC900AADFAB /* ScreenAddViewController.h */,
+				AF3BE21718C75CC900AADFAB /* ScreenAddViewController.m */,
 				AF0934E018912BA70097368B /* Images.xcassets */,
 				AF0934DD18912BA70097368B /* RSSreader.xcdatamodeld */,
 				AF0934D218912BA70097368B /* Supporting Files */,
@@ -230,6 +248,7 @@
 			files = (
 				AF0934D618912BA70097368B /* InfoPlist.strings in Resources */,
 				AF0934E118912BA70097368B /* Images.xcassets in Resources */,
+				AF3BE20F18C606DC00AADFAB /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,8 +268,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF0934DF18912BA70097368B /* RSSreader.xcdatamodeld in Sources */,
+				AF3BE21518C7128C00AADFAB /* ScreenOneViewController.m in Sources */,
 				AF0934DC18912BA70097368B /* AppDelegate.m in Sources */,
 				AF0934D818912BA70097368B /* main.m in Sources */,
+				AF3BE21818C75CC900AADFAB /* ScreenAddViewController.m in Sources */,
+				AF3BE21218C6070400AADFAB /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +473,7 @@
 				AF0934FA18912BA80097368B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF0934FB18912BA80097368B /* Build configuration list for PBXNativeTarget "RSSreaderTests" */ = {
 			isa = XCConfigurationList;
@@ -459,6 +482,7 @@
 				AF0934FD18912BA80097368B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
