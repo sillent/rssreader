@@ -1,20 +1,18 @@
 //
-//  ScreenAddViewController.m
+//  DetailViewController.m
 //  RSSreader
 //
-//  Created by Dmitry Ulyanov on 05.03.14.
+//  Created by Dmitry on 13.03.14.
 //  Copyright (c) 2014 MegaFon. All rights reserved.
 //
 
-#import "ScreenAddViewController.h"
+#import "DetailViewController.h"
 
-@interface ScreenAddViewController ()
-@property (weak, nonatomic) IBOutlet UITextField *addTextField;
-- (IBAction)confirmButton:(id)sender;
+@interface DetailViewController ()
 
 @end
 
-@implementation ScreenAddViewController
+@implementation DetailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +35,4 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)confirmButton:(id)sender {
-}
 @end

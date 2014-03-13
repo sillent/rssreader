@@ -7,10 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Item.h"
+#import "DetailViewController.h"
 
-@interface ScreenOneViewController : UITableViewController
+@interface ScreenOneViewController : UITableViewController <NSXMLParserDelegate>
+
 @property (strong,nonatomic) UITableViewCell *tcell;
-- (IBAction)addNewFeed:(id)sender;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navItem;
+//@property (strong,nonatomic) NSString *channelTitle;
+
+
+//@property (strong,nonatomic) NSMutableString *itemString;
+@property (copy,nonatomic) NSMutableArray *arrayFull;
+
+
+-(void)moveToNextScreen:(id)sender;
 
 @end

@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "MainViewController.h"
+#import "ScreenOneViewController.h"
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -16,12 +17,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  
+//	ScreenOneViewController *sonecontroller=[[ScreenOneViewController alloc]initWithStyle:UITableViewStylePlain];
+//	MainViewController *navController=[[MainViewController alloc]initWithRootViewController:sonecontroller];
 //    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 //    self.window.backgroundColor = [UIColor whiteColor];
-//    [self.window makeKeyAndVisible];
+//
+//	[self.window makeKeyAndVisible];
 //    [[self window] setRootViewController:mvc];
+//	self.window.rootViewController=navController;
     
     return YES;
 }

@@ -13,60 +13,52 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tableView>
-                    <navigationItem key="navigationItem" title="RSSReader" id="Zn7-Ke-TZc">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zfp-Bt-6nB">
-                            <connections>
-                                <action selector="addNewFeed:" destination="3Lp-LU-PLU" id="tUV-yd-WGa"/>
-                                <segue destination="WuF-DT-EL7" kind="modal" modalTransitionStyle="coverVertical" id="FgB-Bu-POc"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="RSSReader" id="Zn7-Ke-TZc"/>
                     <connections>
                         <outlet property="navItem" destination="Zn7-Ke-TZc" id="VUN-xp-S0v"/>
+                        <segue destination="owD-ah-UFS" kind="push" identifier="CellPush" id="mPX-ND-2Uw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="veV-Lq-s8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="332" y="26"/>
         </scene>
-        <!--Screen Add View Controller-->
-        <scene sceneID="yeb-Yu-kIK">
+        <!--Screen One View Controller-->
+        <scene sceneID="jpb-yq-eX1">
             <objects>
-                <viewController id="WuF-DT-EL7" customClass="ScreenAddViewController" sceneMemberID="viewController">
+                <viewController id="owD-ah-UFS" customClass="ScreenOneViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="x02-Lr-9ZK"/>
-                        <viewControllerLayoutGuide type="bottom" id="l5d-hX-aFU"/>
+                        <viewControllerLayoutGuide type="top" id="v6e-Q9-Dim"/>
+                        <viewControllerLayoutGuide type="bottom" id="jZZ-SJ-64I"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="JPX-fj-MV4">
+                    <view key="view" contentMode="scaleToFill" id="PiK-VU-Fg6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n3t-Gy-bnC">
-                                <rect key="frame" x="27" y="155" width="267" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8m-fG-O8k">
-                                <rect key="frame" x="145" y="241" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="confirmButton:" destination="WuF-DT-EL7" eventType="touchUpInside" id="FWK-OR-EUV"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <outlet property="addTextField" destination="n3t-Gy-bnC" id="iUY-dN-TyR"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="NYQ-gX-pck"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GU7-ZL-pk1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W2j-vH-a1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="728" y="26"/>
+            <point key="canvasLocation" x="850" y="26"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="cLG-4H-3r1">
+            <objects>
+                <viewController id="lTP-wq-HJb" customClass="DetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5qK-tL-pCE"/>
+                        <viewControllerLayoutGuide type="bottom" id="Yad-t0-z2i"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CKt-Uz-rAm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mMd-ah-wi6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1261" y="26"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="Eqo-CR-Xh9">
