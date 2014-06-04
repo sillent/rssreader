@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Item : NSObject
+
 @property (nonatomic,strong) NSMutableString *title;
 @property (nonatomic,strong) NSMutableString *link;
 @property (nonatomic,strong) NSMutableString *category;

@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Item.h"
 @interface DetailViewController : UIViewController
 
+@property (copy,nonatomic) Item *item;
 @property (nonatomic,strong) NSString *itemTitle;
 @property (nonatomic) NSString *itemDescription;
 @property (nonatomic) NSString *itemLink;
-
+@property (nonatomic) UITextField *textField;
 @end

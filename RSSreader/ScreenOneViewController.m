@@ -17,11 +17,16 @@
     NSMutableString *itemString;
     NSInteger counterItem;
 
+
     BOOL itemBegin;
     BOOL titleBegin;
     BOOL linkBegin;
     BOOL descBegin;
     BOOL categBegin;
+    
+    NSXMLParser *xmlparser;
+    
+    UIActivityIndicatorView *activityIndic;
 }
 @end
 
@@ -35,7 +40,10 @@
     }
     return self;
 }
-
+-(void)updateData:(UISwipeGestureRecognizer *)sender
+{
+    NSLog(@"update gesture");
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,10 +57,14 @@
     categBegin=NO;
     counterItem=0;
     
+    activityIndic=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [activityIndic setFrame:CGRectMake(10, 20, 20, 20)];
+
 	itemArray=[[NSMutableArray alloc]initWithCapacity:0];
     itemString=[[NSMutableString alloc]init];
 	NSURL *url=[[NSURL alloc]initWithString:@"http://www.vz.ru/rss.xml"];
-	NSXMLParser *xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
+//	NSXMLParser *xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
+    xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
 	[xmlparser setDelegate:self];
 	[xmlparser parse];
 //	[self setTitle:@"Взгляд"];
@@ -72,17 +84,41 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma uigesturerecognizer
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    NSLog(@"%ld",[gestureRecognizer state]);
+    return YES;
+}
+#pragma mark - uiscrollview delegate
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    // тут нужно вставить апейтилку
+    NSURL *url=[[NSURL alloc]initWithString:@"http://www.vz.ru/rss.xml"];
+//	NSXMLParser *xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
+    xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
+	[xmlparser setDelegate:self];
+    [self setArrayFull:nil];
+    counterItem=0;
+    [[self view]addSubview:activityIndic];
+    [activityIndic startAnimating];
+//    itemArray=[[NSMutableArray alloc]initWithCapacity:0];
+	[xmlparser parse];
+}
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self arrayFull] count];
+//    return [[self arrayFull] count]/2;
+//	return 15;
+    return  [[self arrayFull]count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -96,6 +132,10 @@
     [[cell textLabel]setFont:[UIFont systemFontOfSize:14.0]];
     [[cell textLabel]setNumberOfLines:2];
 	cell.textLabel.text=[[[self  arrayFull] objectAtIndex:[indexPath row]] title];
+    if (indexPath.row==(NSUInteger)99)
+    {
+        cell.textLabel.textColor=[UIColor greenColor];
+    }
     return cell;
 }
 
@@ -103,11 +143,14 @@
 {
     DetailViewController *dt=[[DetailViewController alloc]init];
 //    NSMutableArray *arr=[self arrayFull];
+//    [dt setItem:[[self arrayFull]objectAtIndex:indexPath.row]];
 //    dt.itemTitle=[[arr objectAtIndex:indexPath.row]title];
-//    [dt setItemTitle:[[[self arrayFull]objectAtIndex:[indexPath row]]title]];
-//    [dt setItemDescription:[[[self arrayFull]objectAtIndex:[indexPath row]]title]];
-//    [[self navigationController] pushViewController:dt animated:YES];
-    NSLog(@"%@",[[[self arrayFull]objectAtIndex:indexPath.row]description]);
+    [dt setItemTitle:[[[self arrayFull]objectAtIndex:[indexPath row]]title]];
+    [dt setItemDescription:[[[self arrayFull]objectAtIndex:[indexPath row]]description]];
+    [[self navigationController] pushViewController:dt animated:YES];
+
+    
+    //    NSLog(@"%@",[[[self arrayFull]objectAtIndex:indexPath.row]description]);
 
 }
 /**/
@@ -165,7 +208,7 @@
 {
     if ([elementName isEqualToString:@"item"])
     {
-        ;
+//        ;
         [itemArray addObject:[[Item alloc]init]];
         itemBegin=YES;
     }
@@ -193,7 +236,6 @@
     {
         itemBegin=NO;
         counterItem++;
-        
     }
     if ([elementName isEqualToString:@"title"])
     {
@@ -216,31 +258,47 @@
 
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
+    NSString *descWhiteSpace=nil;
     if (itemBegin)
     {
-        if (titleBegin)
+        if (titleBegin){
+            descWhiteSpace=[[string stringByReplacingOccurrencesOfString:@"\n" withString:@""]stringByReplacingOccurrencesOfString:@"\t" withString:@""];
             [[itemArray objectAtIndex:counterItem]appendTitleFrom:string];
+        }
         
-        if (linkBegin)
+        if (linkBegin) {
+            descWhiteSpace=[[string stringByReplacingOccurrencesOfString:@"\n" withString:@""]stringByReplacingOccurrencesOfString:@"\t" withString:@""];
             [[itemArray objectAtIndex:counterItem]appendLinkFrom:string];
-            
-        if (descBegin)
-            [[itemArray objectAtIndex:counterItem]appendDescriptionFrom:string];
+        }
         
-        if (categBegin)
+        if (descBegin){
+            descWhiteSpace=[[string stringByReplacingOccurrencesOfString:@"\n" withString:@""]stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            [[itemArray objectAtIndex:counterItem]appendDescriptionFrom:descWhiteSpace];
+        }
+        
+        if (categBegin) {
+            descWhiteSpace=[[string stringByReplacingOccurrencesOfString:@"\n" withString:@""]stringByReplacingOccurrencesOfString:@"\t" withString:@""];
             [[itemArray objectAtIndex:counterItem]appendCategoryFrom:string];
+        }
     }
 }
 -(void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
 {
-    NSString *cdata=[[NSString alloc]initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+    __unused NSString *cdata=[[NSString alloc]initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+}
+-(void)parser:(NSXMLParser *)parser foundIgnorableWhitespace:(NSString *)whitespaceString
+{
+	
 }
 -(void)parserDidEndDocument:(NSXMLParser *)parser
 {
     [self setArrayFull:[itemArray copy]];
-    itemArray=nil;
+
+    if ([activityIndic isAnimating])
+        [activityIndic stopAnimating];
+    [itemArray removeAllObjects];
     [[self tableView]reloadData];
-    NSLog(@"count: %lu",(unsigned long)[itemArray count]);
+
 
 }
 

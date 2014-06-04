@@ -10,17 +10,18 @@
 #import "Item.h"
 #import "DetailViewController.h"
 
-@interface ScreenOneViewController : UITableViewController <NSXMLParserDelegate>
+@interface ScreenOneViewController : UITableViewController <NSXMLParserDelegate,UIGestureRecognizerDelegate,UIScrollViewDelegate>
 
 @property (strong,nonatomic) UITableViewCell *tcell;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navItem;
-//@property (strong,nonatomic) NSString *channelTitle;
 
-
-//@property (strong,nonatomic) NSMutableString *itemString;
 @property (copy,nonatomic) NSMutableArray *arrayFull;
+@property (weak, nonatomic) IBOutlet UIView *reloadView;
 
+// gesture
+@property (nonatomic) UISwipeGestureRecognizer *swipeReload;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 -(void)moveToNextScreen:(id)sender;
-
+-(void)updateData:(UISwipeGestureRecognizer *)sender;
 @end

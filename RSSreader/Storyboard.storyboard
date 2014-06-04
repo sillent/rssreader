@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="s55-AK-T8a">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="s55-AK-T8a">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Screen One View Controller - RSSReader-->
@@ -16,49 +16,12 @@
                     <navigationItem key="navigationItem" title="RSSReader" id="Zn7-Ke-TZc"/>
                     <connections>
                         <outlet property="navItem" destination="Zn7-Ke-TZc" id="VUN-xp-S0v"/>
-                        <segue destination="owD-ah-UFS" kind="push" identifier="CellPush" id="mPX-ND-2Uw"/>
+                        <outlet property="tableView" destination="dY6-Vd-iMI" id="95X-Tp-Eyq"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="veV-Lq-s8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="332" y="26"/>
-        </scene>
-        <!--Screen One View Controller-->
-        <scene sceneID="jpb-yq-eX1">
-            <objects>
-                <viewController id="owD-ah-UFS" customClass="ScreenOneViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="v6e-Q9-Dim"/>
-                        <viewControllerLayoutGuide type="bottom" id="jZZ-SJ-64I"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PiK-VU-Fg6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="NYQ-gX-pck"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="W2j-vH-a1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="850" y="26"/>
-        </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="cLG-4H-3r1">
-            <objects>
-                <viewController id="lTP-wq-HJb" customClass="DetailViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="5qK-tL-pCE"/>
-                        <viewControllerLayoutGuide type="bottom" id="Yad-t0-z2i"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="CKt-Uz-rAm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mMd-ah-wi6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1261" y="26"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="Eqo-CR-Xh9">
