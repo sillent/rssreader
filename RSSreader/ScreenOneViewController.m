@@ -132,7 +132,7 @@
     [[cell textLabel]setFont:[UIFont systemFontOfSize:14.0]];
     [[cell textLabel]setNumberOfLines:2];
 	cell.textLabel.text=[[[self  arrayFull] objectAtIndex:[indexPath row]] title];
-    if (indexPath.row==(NSUInteger)99)
+    if ([[[self arrayFull]objectAtIndex:indexPath.row]read]==YES)
     {
         cell.textLabel.textColor=[UIColor greenColor];
     }
@@ -147,6 +147,8 @@
 //    dt.itemTitle=[[arr objectAtIndex:indexPath.row]title];
     [dt setItemTitle:[[[self arrayFull]objectAtIndex:[indexPath row]]title]];
     [dt setItemDescription:[[[self arrayFull]objectAtIndex:[indexPath row]]description]];
+    [[[self arrayFull]objectAtIndex:[indexPath row]]setRead:YES];
+    [[self tableView]reloadData];
     [[self navigationController] pushViewController:dt animated:YES];
 
     

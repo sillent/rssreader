@@ -14,6 +14,7 @@
 @property (nonatomic,strong) NSMutableString *link;
 @property (nonatomic,strong) NSMutableString *category;
 @property (nonatomic,strong) NSMutableString *description;
+@property (nonatomic) BOOL read;
 -(id)init;
 -(void)appendTitleFrom:(NSString *)string;
 -(void)appendLinkFrom:(NSString *)string;

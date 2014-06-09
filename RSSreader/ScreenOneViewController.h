@@ -16,11 +16,12 @@
 @property (weak, nonatomic) IBOutlet UINavigationItem *navItem;
 
 @property (copy,nonatomic) NSMutableArray *arrayFull;
-@property (weak, nonatomic) IBOutlet UIView *reloadView;
+//@property (weak, nonatomic) IBOutlet UIView *reloadView;
 
 // gesture
 @property (nonatomic) UISwipeGestureRecognizer *swipeReload;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+//@property (strong, nonatomic) IBOutlet UITableView *tableView;
+
 
 -(void)moveToNextScreen:(id)sender;
 -(void)updateData:(UISwipeGestureRecognizer *)sender;
