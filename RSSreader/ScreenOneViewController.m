@@ -7,6 +7,7 @@
 //
 
 #import "ScreenOneViewController.h"
+#import "AppDelegate.h"
 
 @interface ScreenOneViewController ()
 {
@@ -44,9 +45,44 @@
 {
     NSLog(@"update gesture");
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    
+}
+-(void)loadContent
+{
+    
+    
+    isLoadRss=NO;
+    
+    // xml initial checkbox
+    itemBegin=NO;
+    titleBegin=NO;
+    linkBegin=NO;
+    descBegin=NO;
+    categBegin=NO;
+    counterItem=0;
+    
+    activityIndic=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [activityIndic setFrame:CGRectMake(10, 20, 20, 20)];
+    
+	itemArray=[[NSMutableArray alloc]initWithCapacity:0];
+    itemString=[[NSMutableString alloc]init];
+	NSURL *url=[[NSURL alloc]initWithString:@"http://www.vz.ru/rss.xml"];
+    //	NSXMLParser *xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
+    xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
+	[xmlparser setDelegate:self];
+	[xmlparser parse];
+
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self loadContent];
+    AppDelegate *appDelegate=[[UIApplication sharedApplication]delegate];
+    self.managedObjectContext=appDelegate.managedObjectContext;
+    
+    /*
     isLoadRss=NO;
     
     // xml initial checkbox
@@ -66,7 +102,8 @@
 //	NSXMLParser *xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
     xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
 	[xmlparser setDelegate:self];
-	[xmlparser parse];
+	[xmlparser parse]; */
+    
 //	[self setTitle:@"Взгляд"];
 	
 	
@@ -84,12 +121,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma uigesturerecognizer
--(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    NSLog(@"%ld",[gestureRecognizer state]);
-    return YES;
-}
+
 #pragma mark - uiscrollview delegate
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -294,13 +326,19 @@
 }
 -(void)parserDidEndDocument:(NSXMLParser *)parser
 {
+    Items *items=[NSEntityDescription insertNewObjectForEntityForName:@"Items" inManagedObjectContext:self.managedObjectContext];
+    items.link=[[itemArray objectAtIndex:0]link];
+    items.desc=[[itemArray objectAtIndex:0]description];
+    NSError *err;
+    [[self managedObjectContext] save:&err];
     [self setArrayFull:[itemArray copy]];
+    
 
     if ([activityIndic isAnimating])
         [activityIndic stopAnimating];
     [itemArray removeAllObjects];
     [[self tableView]reloadData];
-
+    
 
 }
 

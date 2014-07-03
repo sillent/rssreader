@@ -24,6 +24,7 @@
 		AF0934F518912BA80097368B /* RSSreaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0934F418912BA80097368B /* RSSreaderTests.m */; };
 		AF130E7F18CF1AAD00DBFA86 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = AF130E7E18CF1AAD00DBFA86 /* Item.m */; };
 		AF130E8218D1BF1A00DBFA86 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF130E8118D1BF1A00DBFA86 /* DetailViewController.m */; };
+		AF1BD8C31945CBEF001C44AE /* Items.m in Sources */ = {isa = PBXBuildFile; fileRef = AF1BD8C21945CBEF001C44AE /* Items.m */; };
 		AF3BE20F18C606DC00AADFAB /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3BE20E18C606DC00AADFAB /* Storyboard.storyboard */; };
 		AF3BE21218C6070400AADFAB /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3BE21118C6070400AADFAB /* MainViewController.m */; };
 		AF3BE21518C7128C00AADFAB /* ScreenOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3BE21418C7128C00AADFAB /* ScreenOneViewController.m */; };
@@ -62,6 +63,8 @@
 		AF130E7E18CF1AAD00DBFA86 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = ../Item.m; sourceTree = "<group>"; };
 		AF130E8018D1BF1900DBFA86 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		AF130E8118D1BF1A00DBFA86 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		AF1BD8C11945CBEF001C44AE /* Items.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Items.h; sourceTree = "<group>"; };
+		AF1BD8C21945CBEF001C44AE /* Items.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Items.m; sourceTree = "<group>"; };
 		AF3BE20E18C606DC00AADFAB /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		AF3BE21018C6070400AADFAB /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		AF3BE21118C6070400AADFAB /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -142,6 +145,8 @@
 				AF130E8118D1BF1A00DBFA86 /* DetailViewController.m */,
 				AF0934E018912BA70097368B /* Images.xcassets */,
 				AF0934DD18912BA70097368B /* RSSreader.xcdatamodeld */,
+				AF1BD8C11945CBEF001C44AE /* Items.h */,
+				AF1BD8C21945CBEF001C44AE /* Items.m */,
 				AF0934D218912BA70097368B /* Supporting Files */,
 			);
 			path = RSSreader;
@@ -276,6 +281,7 @@
 				AF3BE21518C7128C00AADFAB /* ScreenOneViewController.m in Sources */,
 				AF0934DC18912BA70097368B /* AppDelegate.m in Sources */,
 				AF0934D818912BA70097368B /* main.m in Sources */,
+				AF1BD8C31945CBEF001C44AE /* Items.m in Sources */,
 				AF130E7F18CF1AAD00DBFA86 /* Item.m in Sources */,
 				AF3BE21218C6070400AADFAB /* MainViewController.m in Sources */,
 				AF130E8218D1BF1A00DBFA86 /* DetailViewController.m in Sources */,

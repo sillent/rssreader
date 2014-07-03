@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "ScreenOneViewController.h"
+#import <CoreData/CoreData.h>
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
