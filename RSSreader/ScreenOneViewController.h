@@ -28,6 +28,5 @@
 @property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
 
 -(void)loadContent;
--(void)moveToNextScreen:(id)sender;
 -(void)updateData:(UISwipeGestureRecognizer *)sender;
 @end

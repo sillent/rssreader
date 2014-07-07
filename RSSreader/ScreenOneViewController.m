@@ -105,7 +105,8 @@
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     // тут нужно вставить апейтилку
-    NSURL *url=[[NSURL alloc]initWithString:@"http://www.vz.ru/rss.xml"];
+    [self loadContent];
+/*    NSURL *url=[[NSURL alloc]initWithString:@"http://www.vz.ru/rss.xml"];
 //	NSXMLParser *xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
     xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
 	[xmlparser setDelegate:self];
@@ -115,8 +116,8 @@
     [activityIndic startAnimating];
 //    itemArray=[[NSMutableArray alloc]initWithCapacity:0];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-	[xmlparser parse];
-    });
+        [xmlparser parse];
+    }); */
 }
 
 #pragma mark - Table view data source
@@ -154,9 +155,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DetailViewController *dt=[[DetailViewController alloc]init];
-//    NSMutableArray *arr=[self arrayFull];
-//    [dt setItem:[[self arrayFull]objectAtIndex:indexPath.row]];
-//    dt.itemTitle=[[arr objectAtIndex:indexPath.row]title];
+    
     [dt setItemTitle:[[[self arrayFull]objectAtIndex:[indexPath row]]title]];
     [dt setItemDescription:[[[self arrayFull]objectAtIndex:[indexPath row]]description]];
     [[[self arrayFull]objectAtIndex:[indexPath row]]setRead:YES];
@@ -316,7 +315,7 @@
         items.category=[ite category];
         items.timestamp=[NSDate date];
         items.read=NO;
-        [[self managedObjectContext]save:&err];
+//        [[self managedObjectContext]save:&err];    // пока уберем чтобы не засорять базу и место
         items=nil;
         err=nil;
     }
@@ -334,9 +333,5 @@
 
 }
 
--(void)moveToNextScreen:(id)sender
-{
-    
-}
 
 @end
