@@ -70,6 +70,7 @@
 		AF3BE21118C6070400AADFAB /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		AF3BE21318C7128C00AADFAB /* ScreenOneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenOneViewController.h; sourceTree = "<group>"; };
 		AF3BE21418C7128C00AADFAB /* ScreenOneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenOneViewController.m; sourceTree = "<group>"; };
+		AF63675719657A9700407784 /* RSSreader_added_timestamp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RSSreader_added_timestamp.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -498,9 +499,10 @@
 		AF0934DD18912BA70097368B /* RSSreader.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				AF63675719657A9700407784 /* RSSreader_added_timestamp.xcdatamodel */,
 				AF0934DE18912BA70097368B /* RSSreader.xcdatamodel */,
 			);
-			currentVersion = AF0934DE18912BA70097368B /* RSSreader.xcdatamodel */;
+			currentVersion = AF63675719657A9700407784 /* RSSreader_added_timestamp.xcdatamodel */;
 			path = RSSreader.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

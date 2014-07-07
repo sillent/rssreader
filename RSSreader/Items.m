@@ -16,5 +16,5 @@
 @dynamic desc;
 @dynamic category;
 @dynamic read;
-
+@dynamic timestamp;
 @end

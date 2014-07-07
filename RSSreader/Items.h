@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSString * category;
+@property (nonatomic, retain) NSDate *timestamp;
 @property (nonatomic) BOOL read;
 
 @end

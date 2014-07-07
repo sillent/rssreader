@@ -25,6 +25,7 @@
 //@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
 
 -(void)loadContent;
 -(void)moveToNextScreen:(id)sender;

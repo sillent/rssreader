@@ -41,6 +41,7 @@
     NSLog(@"vs: %@",_itemDescription);
 
 //    [webview loadHTMLString:[self description] baseURL:nil];
+    [[self navigationItem]setTitle:_itemTitle];
     [[self view]addSubview:webview];
     [webview loadHTMLString:_itemDescription baseURL:nil];
 }

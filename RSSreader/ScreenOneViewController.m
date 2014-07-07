@@ -72,41 +72,19 @@
     //	NSXMLParser *xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
     xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
 	[xmlparser setDelegate:self];
-	[xmlparser parse];
+    // загружаем параллельно отображению вьюхи
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [xmlparser parse];
+    });
 
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadContent];
     AppDelegate *appDelegate=[[UIApplication sharedApplication]delegate];
     self.managedObjectContext=appDelegate.managedObjectContext;
-    
-    /*
-    isLoadRss=NO;
-    
-    // xml initial checkbox
-    itemBegin=NO;
-    titleBegin=NO;
-    linkBegin=NO;
-    descBegin=NO;
-    categBegin=NO;
-    counterItem=0;
-    
-    activityIndic=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [activityIndic setFrame:CGRectMake(10, 20, 20, 20)];
+    [self loadContent];
 
-	itemArray=[[NSMutableArray alloc]initWithCapacity:0];
-    itemString=[[NSMutableString alloc]init];
-	NSURL *url=[[NSURL alloc]initWithString:@"http://www.vz.ru/rss.xml"];
-//	NSXMLParser *xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
-    xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
-	[xmlparser setDelegate:self];
-	[xmlparser parse]; */
-    
-//	[self setTitle:@"Взгляд"];
-	
-	
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -136,7 +114,9 @@
     [[self view]addSubview:activityIndic];
     [activityIndic startAnimating];
 //    itemArray=[[NSMutableArray alloc]initWithCapacity:0];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 	[xmlparser parse];
+    });
 }
 
 #pragma mark - Table view data source
@@ -324,20 +304,32 @@
 {
 	
 }
+
 -(void)parserDidEndDocument:(NSXMLParser *)parser
 {
-    Items *items=[NSEntityDescription insertNewObjectForEntityForName:@"Items" inManagedObjectContext:self.managedObjectContext];
-    items.link=[[itemArray objectAtIndex:0]link];
-    items.desc=[[itemArray objectAtIndex:0]description];
-    NSError *err;
-    [[self managedObjectContext] save:&err];
+    for (id ite in itemArray) {         // создаем объект энтити и сохраняем все загруженные объекты в БД
+        Items *items=[NSEntityDescription insertNewObjectForEntityForName:@"Items" inManagedObjectContext:self.managedObjectContext];
+        NSError *err;
+        items.link=[ite link];
+        items.desc=[ite description];
+        items.title=[ite title];
+        items.category=[ite category];
+        items.timestamp=[NSDate date];
+        items.read=NO;
+        [[self managedObjectContext]save:&err];
+        items=nil;
+        err=nil;
+    }
     [self setArrayFull:[itemArray copy]];
     
-
-    if ([activityIndic isAnimating])
-        [activityIndic stopAnimating];
     [itemArray removeAllObjects];
-    [[self tableView]reloadData];
+    // обновляем табличное представление в главном потоке
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        if ([activityIndic isAnimating])
+            [activityIndic stopAnimating];
+        [[self tableView]reloadData];
+    });
+//    [[self tableView]reloadData];
     
 
 }
