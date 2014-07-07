@@ -22,10 +22,16 @@
     }
     return self;
 }
-
+-(void)customBack
+{
+    [[self navigationController]popViewControllerAnimated:YES];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[self navigationItem]setHidesBackButton:YES];
+    UIBarButtonItem *backButton=[[UIBarButtonItem alloc]initWithTitle:@"Назад" style:UIBarButtonItemStyleBordered target:self action:@selector(customBack)];
+    [[self navigationItem]setLeftBarButtonItem:backButton];
 	// Do any additional setup after loading the view.
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -34,16 +40,15 @@
     CGFloat yi=self.view.bounds.origin.y;
     CGFloat hi=self.view.bounds.size.height;
     CGFloat wi=self.view.bounds.size.width;
-	UIWebView *webview=[[UIWebView alloc]initWithFrame:CGRectMake(xi, yi, wi, hi)];
-//    UITextView *textview=[[UITextView alloc]initWithFrame:CGRectMake(xi, yi, wi, hi)];
-    
+
+    UIWebView *webviewMain=[[UIWebView alloc]initWithFrame:CGRectMake(xi, yi, wi, hi)];
     
     NSLog(@"vs: %@",_itemDescription);
 
-//    [webview loadHTMLString:[self description] baseURL:nil];
-    [[self navigationItem]setTitle:_itemTitle];
-    [[self view]addSubview:webview];
-    [webview loadHTMLString:_itemDescription baseURL:nil];
+    [[self navigationItem]setTitle:@"Взгляд"];
+    
+    [[self view]addSubview:webviewMain];
+    [webviewMain loadHTMLString:_itemDescription baseURL:nil];
 }
 
 - (void)didReceiveMemoryWarning
