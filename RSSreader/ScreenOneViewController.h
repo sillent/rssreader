@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #import "DetailViewController.h"
 
-@interface ScreenOneViewController : UITableViewController <NSXMLParserDelegate,UIGestureRecognizerDelegate>
+@interface ScreenOneViewController : UITableViewController <NSXMLParserDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate>
 
 @property (strong,nonatomic) UITableViewCell *tcell;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navItem;

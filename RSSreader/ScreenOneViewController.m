@@ -25,6 +25,7 @@
     BOOL descBegin;
     BOOL categBegin;
     
+    BOOL parseOK;
     NSXMLParser *xmlparser;
     
     UIActivityIndicatorView *activityIndic;
@@ -52,7 +53,6 @@
 -(void)loadContent
 {
     
-    
     isLoadRss=NO;
     
     // xml initial checkbox
@@ -74,13 +74,27 @@
 	[xmlparser setDelegate:self];
     // загружаем параллельно отображению вьюхи
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [xmlparser parse];
+        parseOK=[xmlparser parse];
+        if (!parseOK)
+        {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+            UIAlertView *alw=[[UIAlertView alloc]initWithTitle:@"Ошибка" message:@"ошибка загрузки данных" delegate:self cancelButtonTitle:@"Принять" otherButtonTitles:nil, nil];
+                [alw show];
+            });
+            
+        }
     });
-
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==0)
+        NSLog(@"Good bye");
+        exit(0);
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[self navigationItem]setTitle:@"Взгляд"];
     AppDelegate *appDelegate=[[UIApplication sharedApplication]delegate];
     self.managedObjectContext=appDelegate.managedObjectContext;
     [self loadContent];
@@ -141,13 +155,13 @@
     
     // Configure the cell...
 //    cell.textLabel.text=[[itemArray objectAtIndex:0] title];
-	cell.textLabel.textColor=[UIColor blueColor];
+	cell.textLabel.textColor=[UIColor blackColor];
     [[cell textLabel]setFont:[UIFont systemFontOfSize:14.0]];
     [[cell textLabel]setNumberOfLines:2];
 	cell.textLabel.text=[[[self  arrayFull] objectAtIndex:[indexPath row]] title];
     if ([[[self arrayFull]objectAtIndex:indexPath.row]read]==YES)
     {
-        cell.textLabel.textColor=[UIColor greenColor];
+        cell.textLabel.textColor=[UIColor grayColor];
     }
     return cell;
 }
@@ -332,6 +346,7 @@
     
 
 }
+
 
 
 @end
