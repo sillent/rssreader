@@ -48,7 +48,6 @@
     NSLog(@"vs: %@",_itemDescription);
 
     [[self navigationItem]setTitle:@"Взгляд"];
-    
     [[self view]addSubview:webviewMain];
     [webviewMain loadHTMLString:_itemDescription baseURL:nil];
 }

@@ -26,6 +26,7 @@
     BOOL categBegin;
     
     BOOL parseOK;
+    BOOL loadBegin;
     NSXMLParser *xmlparser;
     
     UIActivityIndicatorView *activityIndic;
@@ -52,8 +53,11 @@
 }
 -(void)loadContent
 {
+    if (loadBegin==NO) {
+        loadBegin=YES;
     
     isLoadRss=NO;
+    
     
     // xml initial checkbox
     itemBegin=NO;
@@ -84,6 +88,7 @@
             
         }
     });
+    }
 }
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -97,9 +102,8 @@
     [[self navigationItem]setTitle:@"Взгляд"];
     AppDelegate *appDelegate=[[UIApplication sharedApplication]delegate];
     self.managedObjectContext=appDelegate.managedObjectContext;
+    loadBegin=NO;
     [self loadContent];
-
-
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -118,20 +122,8 @@
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    // тут нужно вставить апейтилку
+    // тут нужно вставить апдейтилку
     [self loadContent];
-/*    NSURL *url=[[NSURL alloc]initWithString:@"http://www.vz.ru/rss.xml"];
-//	NSXMLParser *xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
-    xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
-	[xmlparser setDelegate:self];
-    [self setArrayFull:nil];
-    counterItem=0;
-    [[self view]addSubview:activityIndic];
-    [activityIndic startAnimating];
-//    itemArray=[[NSMutableArray alloc]initWithCapacity:0];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [xmlparser parse];
-    }); */
 }
 
 #pragma mark - Table view data source
@@ -334,7 +326,6 @@
         err=nil;
     }
     [self setArrayFull:[itemArray copy]];
-    
     [itemArray removeAllObjects];
     // обновляем табличное представление в главном потоке
     dispatch_sync(dispatch_get_main_queue(), ^{
@@ -342,6 +333,7 @@
             [activityIndic stopAnimating];
         [[self tableView]reloadData];
     });
+    loadBegin=NO;
 //    [[self tableView]reloadData];
     
 
