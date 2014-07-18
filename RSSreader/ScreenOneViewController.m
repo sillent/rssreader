@@ -100,8 +100,6 @@
 {
     [super viewDidLoad];
     [[self navigationItem]setTitle:@"Взгляд"];
-    AppDelegate *appDelegate=[[UIApplication sharedApplication]delegate];
-    self.managedObjectContext=appDelegate.managedObjectContext;
     loadBegin=NO;
     [self loadContent];
     // Uncomment the following line to preserve selection between presentations.
