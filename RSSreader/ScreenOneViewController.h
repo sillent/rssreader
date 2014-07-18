@@ -24,8 +24,6 @@
 @property (nonatomic) UISwipeGestureRecognizer *swipeReload;
 //@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
 
 -(void)loadContent;
 -(void)updateData:(UISwipeGestureRecognizer *)sender;

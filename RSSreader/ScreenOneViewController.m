@@ -312,19 +312,6 @@
 
 -(void)parserDidEndDocument:(NSXMLParser *)parser
 {
-    for (id ite in itemArray) {         // создаем объект энтити и сохраняем все загруженные объекты в БД
-        Items *items=[NSEntityDescription insertNewObjectForEntityForName:@"Items" inManagedObjectContext:self.managedObjectContext];
-        NSError *err;
-        items.link=[ite link];
-        items.desc=[ite description];
-        items.title=[ite title];
-        items.category=[ite category];
-        items.timestamp=[NSDate date];
-        items.read=NO;
-//        [[self managedObjectContext]save:&err];    // пока уберем чтобы не засорять базу и место
-        items=nil;
-        err=nil;
-    }
     [self setArrayFull:[itemArray copy]];
     [itemArray removeAllObjects];
     // обновляем табличное представление в главном потоке
