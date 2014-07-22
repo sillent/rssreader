@@ -11,6 +11,7 @@
 #import "Items.h"
 #import "AppDelegate.h"
 #import "DetailViewController.h"
+#import "BaseDumper.h"
 
 @interface ScreenOneViewController : UITableViewController <NSXMLParserDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate>
 
@@ -27,4 +28,5 @@
 
 -(void)loadContent;
 -(void)updateData:(UISwipeGestureRecognizer *)sender;
+//-(BOOL)saveToBaseFrom:(NSDictionary *)dictionary;
 @end

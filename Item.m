@@ -17,6 +17,8 @@
         [self setLink:[[NSMutableString alloc]init]];
         [self setCategory:[[NSMutableString alloc]init]];
         [self setDescription:[[NSMutableString alloc]init]];
+        [self setPubDate:[[NSMutableString alloc]init]];
+        [self setGuid:[[NSMutableString alloc]init]];
     }
     return self;
 }
@@ -35,6 +37,14 @@
 -(void)appendCategoryFrom:(NSString *)string
 {
     [[self category]appendString:string];
+}
+-(void)appendGuidFrom:(NSString *)string
+{
+    [[self guid]appendString:string];
+}
+-(void)appendPubDate:(NSString *)string
+{
+    [[self pubDate]appendString:string];
 }
 
 

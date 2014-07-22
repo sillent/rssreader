@@ -14,11 +14,15 @@
 @property (nonatomic,strong) NSMutableString *link;
 @property (nonatomic,strong) NSMutableString *category;
 @property (nonatomic,strong) NSMutableString *description;
+@property (nonatomic,strong) NSMutableString *guid;
+@property (nonatomic,strong) NSMutableString *pubDate;
 @property (nonatomic) BOOL read;
 -(id)init;
 -(void)appendTitleFrom:(NSString *)string;
 -(void)appendLinkFrom:(NSString *)string;
 -(void)appendCategoryFrom:(NSString *)string;
 -(void)appendDescriptionFrom:(NSString *)string;
+-(void)appendGuidFrom:(NSString *)string;
+-(void)appendPubDate:(NSString *)string;
 
 @end

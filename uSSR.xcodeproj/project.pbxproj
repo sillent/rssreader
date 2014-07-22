@@ -24,6 +24,8 @@
 		AF0934F518912BA80097368B /* RSSreaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0934F418912BA80097368B /* RSSreaderTests.m */; };
 		AF130E7F18CF1AAD00DBFA86 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = AF130E7E18CF1AAD00DBFA86 /* Item.m */; };
 		AF130E8218D1BF1A00DBFA86 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF130E8118D1BF1A00DBFA86 /* DetailViewController.m */; };
+		AF18599C197CFD9A009188B5 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AF18599B197CFD9A009188B5 /* libsqlite3.dylib */; };
+		AF18599F197D00DB009188B5 /* BaseDumper.m in Sources */ = {isa = PBXBuildFile; fileRef = AF18599E197D00DB009188B5 /* BaseDumper.m */; };
 		AF1BD8C31945CBEF001C44AE /* Items.m in Sources */ = {isa = PBXBuildFile; fileRef = AF1BD8C21945CBEF001C44AE /* Items.m */; };
 		AF3BE20F18C606DC00AADFAB /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3BE20E18C606DC00AADFAB /* Storyboard.storyboard */; };
 		AF3BE21218C6070400AADFAB /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3BE21118C6070400AADFAB /* MainViewController.m */; };
@@ -63,6 +65,9 @@
 		AF130E7E18CF1AAD00DBFA86 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = ../Item.m; sourceTree = "<group>"; };
 		AF130E8018D1BF1900DBFA86 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		AF130E8118D1BF1A00DBFA86 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		AF18599B197CFD9A009188B5 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		AF18599D197D00DB009188B5 /* BaseDumper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseDumper.h; sourceTree = "<group>"; };
+		AF18599E197D00DB009188B5 /* BaseDumper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseDumper.m; sourceTree = "<group>"; };
 		AF1BD8C11945CBEF001C44AE /* Items.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Items.h; sourceTree = "<group>"; };
 		AF1BD8C21945CBEF001C44AE /* Items.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Items.m; sourceTree = "<group>"; };
 		AF3BE20E18C606DC00AADFAB /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
@@ -78,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF18599C197CFD9A009188B5 /* libsqlite3.dylib in Frameworks */,
 				AF0934CC18912BA70097368B /* CoreGraphics.framework in Frameworks */,
 				AF0934D018912BA70097368B /* CoreData.framework in Frameworks */,
 				AF0934CE18912BA70097368B /* UIKit.framework in Frameworks */,
@@ -121,6 +127,7 @@
 		AF0934C818912BA70097368B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AF18599B197CFD9A009188B5 /* libsqlite3.dylib */,
 				AF0934C918912BA70097368B /* Foundation.framework */,
 				AF0934CB18912BA70097368B /* CoreGraphics.framework */,
 				AF0934CD18912BA70097368B /* UIKit.framework */,
@@ -140,6 +147,8 @@
 				AF3BE21018C6070400AADFAB /* MainViewController.h */,
 				AF3BE21118C6070400AADFAB /* MainViewController.m */,
 				AF3BE20E18C606DC00AADFAB /* Storyboard.storyboard */,
+				AF18599D197D00DB009188B5 /* BaseDumper.h */,
+				AF18599E197D00DB009188B5 /* BaseDumper.m */,
 				AF3BE21318C7128C00AADFAB /* ScreenOneViewController.h */,
 				AF3BE21418C7128C00AADFAB /* ScreenOneViewController.m */,
 				AF130E8018D1BF1900DBFA86 /* DetailViewController.h */,
@@ -286,6 +295,7 @@
 				AF0934DC18912BA70097368B /* AppDelegate.m in Sources */,
 				AF0934D818912BA70097368B /* main.m in Sources */,
 				AF1BD8C31945CBEF001C44AE /* Items.m in Sources */,
+				AF18599F197D00DB009188B5 /* BaseDumper.m in Sources */,
 				AF130E7F18CF1AAD00DBFA86 /* Item.m in Sources */,
 				AF3BE21218C6070400AADFAB /* MainViewController.m in Sources */,
 				AF130E8218D1BF1A00DBFA86 /* DetailViewController.m in Sources */,
@@ -430,7 +440,7 @@
 				GCC_PREFIX_HEADER = "RSSreader/uSSR-Prefix.pch";
 				INFOPLIST_FILE = "RSSreader/uSSR-Info.plist";
 				PRODUCT_NAME = uSSR;
-				PROVISIONING_PROFILE = "3347AC93-288F-426D-B498-8F222E9C51C2";
+				PROVISIONING_PROFILE = "86114FD8-ADED-4C55-AA1D-54A2F13A484B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

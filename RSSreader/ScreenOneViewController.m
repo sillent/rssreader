@@ -17,6 +17,8 @@
     BOOL isLoadRss;
     NSMutableString *itemString;
     NSInteger counterItem;
+    
+    BaseDumper *bd;
 
 
     BOOL itemBegin;
@@ -24,6 +26,8 @@
     BOOL linkBegin;
     BOOL descBegin;
     BOOL categBegin;
+    BOOL pubDateBegin;
+    BOOL guidBegin;
     
     BOOL parseOK;
     BOOL loadBegin;
@@ -55,39 +59,45 @@
 {
     if (loadBegin==NO) {
         loadBegin=YES;
+        
+        isLoadRss=NO;
+        
+        // xml initial checkbox
+        itemBegin=NO;
+        titleBegin=NO;
+        linkBegin=NO;
+        descBegin=NO;
+        categBegin=NO;
+        pubDateBegin=NO;
+        guidBegin=NO;
+        counterItem=0;
     
-    isLoadRss=NO;
-    
-    
-    // xml initial checkbox
-    itemBegin=NO;
-    titleBegin=NO;
-    linkBegin=NO;
-    descBegin=NO;
-    categBegin=NO;
-    counterItem=0;
-    
-    activityIndic=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [activityIndic setFrame:CGRectMake(10, 20, 20, 20)];
-    
-	itemArray=[[NSMutableArray alloc]initWithCapacity:0];
-    itemString=[[NSMutableString alloc]init];
-	NSURL *url=[[NSURL alloc]initWithString:@"http://www.vz.ru/rss.xml"];
-    //	NSXMLParser *xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
-    xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
-	[xmlparser setDelegate:self];
-    // загружаем параллельно отображению вьюхи
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        parseOK=[xmlparser parse];
-        if (!parseOK)
+        activityIndic=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [activityIndic setFrame:CGRectMake(10, 20, 20, 20)];
+        if (bd)
         {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-            UIAlertView *alw=[[UIAlertView alloc]initWithTitle:@"Ошибка" message:@"ошибка загрузки данных" delegate:self cancelButtonTitle:@"Принять" otherButtonTitles:nil, nil];
-                [alw show];
-            });
-            
+            [bd closeDatabase];
+            bd=nil;
         }
-    });
+        bd=[[BaseDumper alloc]init];    // BaseDumper initializing
+        
+        itemArray=[[NSMutableArray alloc]initWithCapacity:0];
+        itemString=[[NSMutableString alloc]init];
+        NSURL *url=[[NSURL alloc]initWithString:@"http://www.vz.ru/rss.xml"];
+        xmlparser=[[NSXMLParser alloc]initWithContentsOfURL:url];
+        [xmlparser setDelegate:self];
+        // загружаем параллельно отображению вьюхи
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            parseOK=[xmlparser parse];
+            if (!parseOK)
+            {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                UIAlertView *alw=[[UIAlertView alloc]initWithTitle:@"Ошибка" message:@"ошибка загрузки данных" delegate:self cancelButtonTitle:@"Принять" otherButtonTitles:nil, nil];
+                    [alw show];
+                });
+                
+            }
+        });
     }
 }
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -225,7 +235,6 @@
 {
     if ([elementName isEqualToString:@"item"])
     {
-//        ;
         [itemArray addObject:[[Item alloc]init]];
         itemBegin=YES;
     }
@@ -245,13 +254,27 @@
     {
         categBegin=YES;
     }
+    if ([elementName isEqualToString:@"pubDate"])
+    {
+        pubDateBegin=YES;
+    }
+    if ([elementName isEqualToString:@"guid"]) {
+        guidBegin=YES;
+    }
 }
-
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     if ([elementName isEqualToString:@"item"])
     {
         itemBegin=NO;
+        
+        // TODO
+        // здесь должна быть вставка итема в БД с проверкой
+
+        NSDictionary *dict=@{@"guid": [[itemArray objectAtIndex:counterItem]guid],@"link": [[itemArray objectAtIndex:counterItem]link],@"title":[[itemArray objectAtIndex:counterItem]title],@"category":[[itemArray objectAtIndex:counterItem]category],@"desc":[[itemArray objectAtIndex:counterItem]description],@"pubDate":[[itemArray objectAtIndex:counterItem]pubDate]};
+
+        if (![bd isGuidAlreadyExist:dict])
+            [bd saveToBaseFrom:dict];
         counterItem++;
     }
     if ([elementName isEqualToString:@"title"])
@@ -270,32 +293,37 @@
     {
         categBegin=NO;
     }
+    if ([elementName isEqualToString:@"pubDate"]) {
+        pubDateBegin=NO;
+    }
+    if ([elementName isEqualToString:@"guid"]) {
+        guidBegin=NO;
+    }
 		
 }
-
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
     NSString *descWhiteSpace=nil;
     if (itemBegin)
     {
         if (titleBegin){
-            descWhiteSpace=[[string stringByReplacingOccurrencesOfString:@"\n" withString:@""]stringByReplacingOccurrencesOfString:@"\t" withString:@""];
             [[itemArray objectAtIndex:counterItem]appendTitleFrom:string];
         }
-        
         if (linkBegin) {
-            descWhiteSpace=[[string stringByReplacingOccurrencesOfString:@"\n" withString:@""]stringByReplacingOccurrencesOfString:@"\t" withString:@""];
             [[itemArray objectAtIndex:counterItem]appendLinkFrom:string];
         }
-        
         if (descBegin){
-            descWhiteSpace=[[string stringByReplacingOccurrencesOfString:@"\n" withString:@""]stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            descWhiteSpace=[[string stringByReplacingOccurrencesOfString:@"\n" withString:@""]stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
             [[itemArray objectAtIndex:counterItem]appendDescriptionFrom:descWhiteSpace];
         }
-        
         if (categBegin) {
-            descWhiteSpace=[[string stringByReplacingOccurrencesOfString:@"\n" withString:@""]stringByReplacingOccurrencesOfString:@"\t" withString:@""];
             [[itemArray objectAtIndex:counterItem]appendCategoryFrom:string];
+        }
+        if (pubDateBegin) {
+            [[itemArray objectAtIndex:counterItem]appendPubDate:string];
+        }
+        if (guidBegin) {
+            [[itemArray objectAtIndex:counterItem]appendGuidFrom:string];
         }
     }
 }
@@ -307,7 +335,6 @@
 {
 	
 }
-
 -(void)parserDidEndDocument:(NSXMLParser *)parser
 {
     [self setArrayFull:[itemArray copy]];
@@ -319,11 +346,7 @@
         [[self tableView]reloadData];
     });
     loadBegin=NO;
-//    [[self tableView]reloadData];
-    
-
 }
-
 
 
 @end
