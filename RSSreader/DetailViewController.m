@@ -32,7 +32,6 @@
     [super viewDidLoad];
     [[self navigationItem]setHidesBackButton:YES];
     UIBarButtonItem *backButton=[[UIBarButtonItem alloc]initWithTitle:@"Назад" style:UIBarButtonItemStyleBordered target:self action:@selector(customBack)];
-
     [[self navigationItem]setLeftBarButtonItem:backButton];
 	// Do any additional setup after loading the view.
 }
@@ -42,11 +41,7 @@
     CGFloat yi=self.view.bounds.origin.y;
     CGFloat hi=self.view.bounds.size.height;
     CGFloat wi=self.view.bounds.size.width;
-
     UIWebView *webviewMain=[[UIWebView alloc]initWithFrame:CGRectMake(xi, yi, wi, hi)];
-    
-    NSLog(@"vs: %@",_itemDescription);
-
     [[self navigationItem]setTitle:@"Взгляд"];
     [[self view]addSubview:webviewMain];
     [webviewMain loadHTMLString:_itemDescription baseURL:nil];

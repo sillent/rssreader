@@ -17,13 +17,9 @@
 
 @property (strong,nonatomic) UITableViewCell *tcell;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navItem;
-
-@property (copy,nonatomic) NSMutableArray *arrayFull;
-//@property (weak, nonatomic) IBOutlet UIView *reloadView;
-
+@property (copy,nonatomic) NSArray *arrayFull;
 // gesture
 @property (nonatomic) UISwipeGestureRecognizer *swipeReload;
-//@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 
 -(void)loadContent;

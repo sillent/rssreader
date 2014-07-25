@@ -8,14 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
+@class Item;
 @interface BaseDumper : NSObject
 {
     sqlite3 *_dataBase;
+    Item *item;
+    NSMutableArray *retArr;
 }
 -(id)init;
 -(void)closeDatabase;
 -(BOOL)saveToBaseFrom:(NSDictionary *)dictionary;
 -(BOOL)isGuidAlreadyExist:(NSDictionary *)dictionary;
-
+-(NSArray *)returnAllFromBase;
 
 @end

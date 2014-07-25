@@ -59,9 +59,7 @@
 {
     if (loadBegin==NO) {
         loadBegin=YES;
-        
         isLoadRss=NO;
-        
         // xml initial checkbox
         itemBegin=NO;
         titleBegin=NO;
@@ -106,7 +104,7 @@
         NSLog(@"Good bye");
         exit(0);
 }
-- (void)viewDidLoad
+- (void)viewDidLoad 
 {
     [super viewDidLoad];
     [[self navigationItem]setTitle:@"Взгляд"];
@@ -337,7 +335,8 @@
 }
 -(void)parserDidEndDocument:(NSXMLParser *)parser
 {
-    [self setArrayFull:[itemArray copy]];
+//    [bd returnAllFromBase];
+    [self setArrayFull:[bd returnAllFromBase]];
     [itemArray removeAllObjects];
     // обновляем табличное представление в главном потоке
     dispatch_sync(dispatch_get_main_queue(), ^{

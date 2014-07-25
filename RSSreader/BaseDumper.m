@@ -7,6 +7,7 @@
 //
 
 #import "BaseDumper.h"
+#import "Item.h"
 
 @implementation BaseDumper
 -(id)init
@@ -50,9 +51,15 @@
             unsigned long i=sqlite3_column_int(statement, 0);
             sqlite3_finalize(statement);
             if (i == guid)
+            {
+                free(query);
                 return YES;
+            }
             else
+            {
+                free(query);
                 return NO;
+            }
         }
     }
     free(query);
@@ -68,26 +75,60 @@
     const char *pubDate=[[dictionary objectForKey:@"pubDate"]cStringUsingEncoding:NSUTF8StringEncoding];
     size_t allocateMemoryForQuery=strlen(link)+strlen(title)+strlen(category)+strlen(desc)+strlen(pubDate)+110;
     char *query=malloc(allocateMemoryForQuery);
-	char *transBegin="BEGIN TRANSACTION";
-	char *transComm="COMMIT TRANSACTION";
+
     snprintf(query, allocateMemoryForQuery, "insert into data (guid,link,title,category,desc,pubDate) values (%lu,'%s','%s','%s','%s','%s')",guid, link,title,category,desc,pubDate);
     char *errmsg;
-	sqlite3_exec(_dataBase, transBegin, nil, nil, nil);
     if (sqlite3_exec(_dataBase, query, nil, nil, &errmsg)==SQLITE_OK)
 	{
-		sqlite3_exec(_dataBase, transComm, nil, nil, nil);
 		free(query);
         return YES;
 	}
     else
     {
-		sqlite3_exec(_dataBase, transComm, nil, nil, nil);
+        printf("%s\n",query);
         NSLog(@"error: %s",errmsg);
 		free(query);
         return NO;
     }
 	
 
+}
+-(NSArray *)returnAllFromBase
+{
+    retArr=[[NSMutableArray alloc]initWithCapacity:0];
+    const char *query="select * from data order by guid DESC limit 100";
+    sqlite3_stmt *statement;
+    if (_dataBase)
+    {
+        if (sqlite3_prepare_v2(_dataBase, query, -1, &statement, nil)==SQLITE_OK)
+        {
+            while (sqlite3_step(statement)==SQLITE_ROW)
+            {
+                item=[[Item alloc]init];
+                const char *guid=sqlite3_column_text(statement,1); // старт с 1, потому что 0 - id.
+                const char *link=(char *)sqlite3_column_text(statement, 2);
+                const char *title=(char *)sqlite3_column_text(statement, 3);
+                const char *category=(char *)sqlite3_column_text(statement, 4);
+                const char *desc=(char *)sqlite3_column_text(statement, 5);
+                const char *pubDate=(char *)sqlite3_column_text(statement, 6);
+                int read=sqlite3_column_int(statement, 7);
+                item.title=(NSMutableString *)[NSString stringWithCString:title encoding:NSUTF8StringEncoding];
+                item.link=(NSMutableString *)[NSString stringWithCString:link encoding:NSUTF8StringEncoding];
+                item.description=(NSMutableString *)[NSString stringWithCString:desc encoding:NSUTF8StringEncoding];
+                item.pubDate=(NSMutableString *)[NSString stringWithCString:pubDate encoding:NSUTF8StringEncoding];
+                item.category=(NSMutableString *)[NSString stringWithCString:category encoding:NSUTF8StringEncoding];
+                item.guid=(NSMutableString *)[NSString stringWithCString:guid encoding:NSUTF8StringEncoding];
+                if (read==1)
+                    item.read=YES;
+                else
+                    item.read=NO;
+                [retArr addObject:item];
+                item=nil;
+            }
+            sqlite3_finalize(statement);
+        }
+    }
+    return retArr;
 }
 -(void)closeDatabase
 {
@@ -96,7 +137,6 @@
         NSLog(@"bad, don't close bd, because BD is BUSY");
     else if (retVal==SQLITE_OK)
         NSLog(@"good, bd closed OK");
-
 }
 
 @end
