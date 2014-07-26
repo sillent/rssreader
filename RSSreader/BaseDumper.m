@@ -8,7 +8,7 @@
 
 #import "BaseDumper.h"
 #import "Item.h"
-
+const char *queryCleanOld="delete from data where guid not in ( select guid from data order by guid DESC limit 100 )";
 @implementation BaseDumper
 -(id)init
 {
@@ -69,9 +69,13 @@
 {
     unsigned long guid=[[dictionary objectForKey:@"guid"]integerValue];
     const char *link=[[dictionary objectForKey:@"link"]cStringUsingEncoding:NSUTF8StringEncoding];
-    const char *title=[[dictionary objectForKey:@"title"]cStringUsingEncoding:NSUTF8StringEncoding];
+    NSData *titleD=[[dictionary objectForKey:@"title"]dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *titleS=[titleD base64EncodedStringWithOptions:0];
+    NSData *descD=[[dictionary objectForKey:@"desc"]dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *descS=[descD base64EncodedStringWithOptions:0];
+    const char *title=[titleS cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *desc=[descS cStringUsingEncoding:NSUTF8StringEncoding];
     const char *category=[[dictionary objectForKey:@"category"]cStringUsingEncoding:NSUTF8StringEncoding];
-    const char *desc=[[dictionary objectForKey:@"desc"]cStringUsingEncoding:NSUTF8StringEncoding];
     const char *pubDate=[[dictionary objectForKey:@"pubDate"]cStringUsingEncoding:NSUTF8StringEncoding];
     size_t allocateMemoryForQuery=strlen(link)+strlen(title)+strlen(category)+strlen(desc)+strlen(pubDate)+110;
     char *query=malloc(allocateMemoryForQuery);
@@ -85,13 +89,9 @@
 	}
     else
     {
-        printf("%s\n",query);
-        NSLog(@"error: %s",errmsg);
 		free(query);
         return NO;
     }
-	
-
 }
 -(NSArray *)returnAllFromBase
 {
@@ -105,16 +105,20 @@
             while (sqlite3_step(statement)==SQLITE_ROW)
             {
                 item=[[Item alloc]init];
-                const char *guid=sqlite3_column_text(statement,1); // старт с 1, потому что 0 - id.
+                const char *guid=(char *)sqlite3_column_text(statement,1); // старт с 1, потому что 0 - id.
                 const char *link=(char *)sqlite3_column_text(statement, 2);
                 const char *title=(char *)sqlite3_column_text(statement, 3);
                 const char *category=(char *)sqlite3_column_text(statement, 4);
                 const char *desc=(char *)sqlite3_column_text(statement, 5);
                 const char *pubDate=(char *)sqlite3_column_text(statement, 6);
                 int read=sqlite3_column_int(statement, 7);
-                item.title=(NSMutableString *)[NSString stringWithCString:title encoding:NSUTF8StringEncoding];
+                NSString *titleencoded=[NSString stringWithCString:title encoding:NSUTF8StringEncoding];
+                NSData *titleD=[[NSData alloc]initWithBase64EncodedString:titleencoded options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                item.title=[[NSMutableString alloc]initWithData:titleD encoding:NSUTF8StringEncoding];
                 item.link=(NSMutableString *)[NSString stringWithCString:link encoding:NSUTF8StringEncoding];
-                item.description=(NSMutableString *)[NSString stringWithCString:desc encoding:NSUTF8StringEncoding];
+                NSString *descencoded=[NSString stringWithCString:desc encoding:NSUTF8StringEncoding];
+                NSData *descD=[[NSData alloc]initWithBase64EncodedString:descencoded options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                item.description=[[NSMutableString alloc]initWithData:descD encoding:NSUTF8StringEncoding];
                 item.pubDate=(NSMutableString *)[NSString stringWithCString:pubDate encoding:NSUTF8StringEncoding];
                 item.category=(NSMutableString *)[NSString stringWithCString:category encoding:NSUTF8StringEncoding];
                 item.guid=(NSMutableString *)[NSString stringWithCString:guid encoding:NSUTF8StringEncoding];
@@ -129,6 +133,29 @@
         }
     }
     return retArr;
+}
+-(void)cleanOldRecord
+{
+    const char *query="delete from data where guid not in ( select guid from data order by guid DESC limit 100 )";
+    if (_dataBase)
+    {
+        if (sqlite3_exec(_dataBase, query, nil, nil, nil)!=SQLITE_OK)
+            NSLog(@"cannot remove old write");
+    }
+}
+-(void)changeRead:(BOOL)read in:(NSInteger *)row
+{
+	//TODO не до конца имплементированный метод
+    int i;
+    if (read==YES) {
+        i=1;
+    }
+    else
+        i=0;
+	if (_dataBase)
+	{
+
+	}
 }
 -(void)closeDatabase
 {

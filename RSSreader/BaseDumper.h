@@ -20,5 +20,6 @@
 -(BOOL)saveToBaseFrom:(NSDictionary *)dictionary;
 -(BOOL)isGuidAlreadyExist:(NSDictionary *)dictionary;
 -(NSArray *)returnAllFromBase;
-
+-(void)cleanOldRecord;
+-(void)changeRead:(BOOL)read in:(NSInteger *)row;
 @end

@@ -78,7 +78,7 @@
             bd=nil;
         }
         bd=[[BaseDumper alloc]init];    // BaseDumper initializing
-        
+        [bd cleanOldRecord];
         itemArray=[[NSMutableArray alloc]initWithCapacity:0];
         itemString=[[NSMutableString alloc]init];
         NSURL *url=[[NSURL alloc]initWithString:@"http://www.vz.ru/rss.xml"];
