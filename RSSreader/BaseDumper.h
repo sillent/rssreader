@@ -17,8 +17,8 @@
 }
 -(id)init;
 -(void)closeDatabase;
--(BOOL)saveToBaseFrom:(NSDictionary *)dictionary;
--(BOOL)isGuidAlreadyExist:(NSDictionary *)dictionary;
+-(BOOL)saveToBaseFromArray:(NSArray *)array;
+-(BOOL)isGuidAlreadyExistInBd:(unsigned long)guid;
 -(NSArray *)returnAllFromBase;
 -(void)cleanOldRecord;
 -(void)changeRead:(BOOL)read in:(NSInteger *)row;

@@ -74,7 +74,7 @@
         [activityIndic setFrame:CGRectMake(10, 20, 20, 20)];
         if (bd)
         {
-            [bd closeDatabase];
+//            [bd closeDatabase];
             bd=nil;
         }
         bd=[[BaseDumper alloc]init];    // BaseDumper initializing
@@ -269,10 +269,10 @@
         // TODO
         // здесь должна быть вставка итема в БД с проверкой
 
-        NSDictionary *dict=@{@"guid": [[itemArray objectAtIndex:counterItem]guid],@"link": [[itemArray objectAtIndex:counterItem]link],@"title":[[itemArray objectAtIndex:counterItem]title],@"category":[[itemArray objectAtIndex:counterItem]category],@"desc":[[itemArray objectAtIndex:counterItem]description],@"pubDate":[[itemArray objectAtIndex:counterItem]pubDate]};
-
-        if (![bd isGuidAlreadyExist:dict])
-            [bd saveToBaseFrom:dict];
+//        NSDictionary *dict=@{@"guid": [[itemArray objectAtIndex:counterItem]guid],@"link": [[itemArray objectAtIndex:counterItem]link],@"title":[[itemArray objectAtIndex:counterItem]title],@"category":[[itemArray objectAtIndex:counterItem]category],@"desc":[[itemArray objectAtIndex:counterItem]description],@"pubDate":[[itemArray objectAtIndex:counterItem]pubDate]};
+//
+//        if (![bd isGuidAlreadyExist:dict])
+//            [bd saveToBaseFrom:dict];
         counterItem++;
     }
     if ([elementName isEqualToString:@"title"])
@@ -335,7 +335,7 @@
 }
 -(void)parserDidEndDocument:(NSXMLParser *)parser
 {
-//    [bd returnAllFromBase];
+    [bd saveToBaseFromArray:itemArray];
     [self setArrayFull:[bd returnAllFromBase]];
     [itemArray removeAllObjects];
     // обновляем табличное представление в главном потоке

@@ -8,7 +8,7 @@
 
 #import "BaseDumper.h"
 #import "Item.h"
-const char *queryCleanOld="delete from data where guid not in ( select guid from data order by guid DESC limit 100 )";
+
 @implementation BaseDumper
 -(id)init
 {
@@ -37,9 +37,9 @@ const char *queryCleanOld="delete from data where guid not in ( select guid from
     }
     return self;
 }
--(BOOL)isGuidAlreadyExist:(NSDictionary *)dictionary
+-(BOOL)isGuidAlreadyExistInBd:(unsigned long)guid
 {
-    unsigned long guid=[[dictionary objectForKey:@"guid"]integerValue];
+
     size_t allocateMemoryForQuery=strlen("select id from data where guid=")+10;
     char *query=malloc(allocateMemoryForQuery);
     snprintf(query, allocateMemoryForQuery, "select guid from data where guid=%lu", guid);
@@ -65,33 +65,36 @@ const char *queryCleanOld="delete from data where guid not in ( select guid from
     free(query);
     return NO;
 }
--(BOOL)saveToBaseFrom:(NSDictionary *)dictionary
-{
-    unsigned long guid=[[dictionary objectForKey:@"guid"]integerValue];
-    const char *link=[[dictionary objectForKey:@"link"]cStringUsingEncoding:NSUTF8StringEncoding];
-    NSData *titleD=[[dictionary objectForKey:@"title"]dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *titleS=[titleD base64EncodedStringWithOptions:0];
-    NSData *descD=[[dictionary objectForKey:@"desc"]dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *descS=[descD base64EncodedStringWithOptions:0];
-    const char *title=[titleS cStringUsingEncoding:NSUTF8StringEncoding];
-    const char *desc=[descS cStringUsingEncoding:NSUTF8StringEncoding];
-    const char *category=[[dictionary objectForKey:@"category"]cStringUsingEncoding:NSUTF8StringEncoding];
-    const char *pubDate=[[dictionary objectForKey:@"pubDate"]cStringUsingEncoding:NSUTF8StringEncoding];
-    size_t allocateMemoryForQuery=strlen(link)+strlen(title)+strlen(category)+strlen(desc)+strlen(pubDate)+110;
-    char *query=malloc(allocateMemoryForQuery);
 
-    snprintf(query, allocateMemoryForQuery, "insert into data (guid,link,title,category,desc,pubDate) values (%lu,'%s','%s','%s','%s','%s')",guid, link,title,category,desc,pubDate);
-    char *errmsg;
-    if (sqlite3_exec(_dataBase, query, nil, nil, &errmsg)==SQLITE_OK)
-	{
-		free(query);
-        return YES;
+
+-(BOOL)saveToBaseFromArray:(NSArray *)array
+{
+	for (Item *it in array) {
+		unsigned long guid=[[it guid]integerValue];
+		const char *link=[[it link]cStringUsingEncoding:NSUTF8StringEncoding];
+		NSData *titleD=[[it title]dataUsingEncoding:NSUTF8StringEncoding];
+		NSString *titleS=[titleD base64EncodedStringWithOptions:0];
+		NSData *descD=[[it description]dataUsingEncoding:NSUTF8StringEncoding];
+		NSString *descS=[descD base64EncodedStringWithOptions:0];
+		const char *title=[titleS cStringUsingEncoding:NSUTF8StringEncoding];
+		const char *desc=[descS cStringUsingEncoding:NSUTF8StringEncoding];
+		const char *category=[[it category]cStringUsingEncoding:NSUTF8StringEncoding];
+		const char *pubDate=[[it pubDate] cStringUsingEncoding:NSUTF8StringEncoding];
+
+		size_t allocateMemoryForQuery=strlen(link)+strlen(title)+strlen(category)+strlen(desc)+strlen(pubDate)+110;
+		char *errmsg;
+		if (![self isGuidAlreadyExistInBd:guid])
+		{
+			char *query=malloc(allocateMemoryForQuery);
+			snprintf(query, allocateMemoryForQuery, "insert into data (guid,link,title,category,desc,pubDate) values (%lu,'%s','%s','%s','%s','%s')",guid, link,title,category,desc,pubDate);
+			if (sqlite3_exec(_dataBase, query, nil, nil, &errmsg)==SQLITE_OK) {
+					free(query);
+			}
+			else
+				NSLog(@"%s",errmsg);
+		}
 	}
-    else
-    {
-		free(query);
-        return NO;
-    }
+	return YES;
 }
 -(NSArray *)returnAllFromBase
 {
@@ -132,6 +135,7 @@ const char *queryCleanOld="delete from data where guid not in ( select guid from
             sqlite3_finalize(statement);
         }
     }
+	[self closeDatabase];
     return retArr;
 }
 -(void)cleanOldRecord
