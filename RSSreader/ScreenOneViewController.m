@@ -173,10 +173,6 @@
     [[[self arrayFull]objectAtIndex:[indexPath row]]setRead:YES];
     [[self tableView]reloadData];
     [[self navigationController] pushViewController:dt animated:YES];
-
-    
-    //    NSLog(@"%@",[[[self arrayFull]objectAtIndex:indexPath.row]description]);
-
 }
 /**/
 // Override to support conditional editing of the table view.

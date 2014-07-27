@@ -61,6 +61,8 @@
                 return NO;
             }
         }
+		else
+			sqlite3_finalize(statement);
     }
     free(query);
     return NO;
@@ -140,12 +142,29 @@
 }
 -(void)cleanOldRecord
 {
+	char *errmsg=0;
     const char *query="delete from data where guid not in ( select guid from data order by guid DESC limit 100 )";
+	sqlite3_stmt *statement;
+
     if (_dataBase)
     {
-        if (sqlite3_exec(_dataBase, query, nil, nil, nil)!=SQLITE_OK)
-            NSLog(@"cannot remove old write");
+		sqlite3_prepare_v2(_dataBase, query, -1, &statement, nil);
+        if (sqlite3_step(statement)==SQLITE_DONE)
+		{
+			NSLog(@"delete done");
+			sqlite3_exec(_dataBase, "COMMIT", nil, nil, nil);
+			sqlite3_finalize(statement);
+//			printf("%s\n",errmsg);
+//
+		}
+		else
+		{
+			printf("error on delete: %s\n", sqlite3_errmsg(_dataBase));
+		}
+		
     }
+
+	sqlite3_free(errmsg);
 }
 -(void)changeRead:(BOOL)read in:(NSInteger *)row
 {
