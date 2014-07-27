@@ -110,25 +110,17 @@
     [[self navigationItem]setTitle:@"Взгляд"];
     loadBegin=NO;
     [self loadContent];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-//	self.navigationItem.leftBarButtonItem = self.editButtonItem;
-	
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - uiscrollview delegate
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    // тут нужно вставить апдейтилку
     [self loadContent];
 }
 
@@ -141,8 +133,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return [[self arrayFull] count]/2;
-//	return 15;
     return  [[self arrayFull]count];
 }
 
@@ -151,8 +141,6 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
-    // Configure the cell...
-//    cell.textLabel.text=[[itemArray objectAtIndex:0] title];
 	cell.textLabel.textColor=[UIColor blackColor];
     [[cell textLabel]setFont:[UIFont systemFontOfSize:14.0]];
     [[cell textLabel]setNumberOfLines:2];
@@ -174,11 +162,9 @@
     [[self tableView]reloadData];
     [[self navigationController] pushViewController:dt animated:YES];
 }
-/**/
-// Override to support conditional editing of the table view.
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 
@@ -261,14 +247,6 @@
     if ([elementName isEqualToString:@"item"])
     {
         itemBegin=NO;
-        
-        // TODO
-        // здесь должна быть вставка итема в БД с проверкой
-
-//        NSDictionary *dict=@{@"guid": [[itemArray objectAtIndex:counterItem]guid],@"link": [[itemArray objectAtIndex:counterItem]link],@"title":[[itemArray objectAtIndex:counterItem]title],@"category":[[itemArray objectAtIndex:counterItem]category],@"desc":[[itemArray objectAtIndex:counterItem]description],@"pubDate":[[itemArray objectAtIndex:counterItem]pubDate]};
-//
-//        if (![bd isGuidAlreadyExist:dict])
-//            [bd saveToBaseFrom:dict];
         counterItem++;
     }
     if ([elementName isEqualToString:@"title"])

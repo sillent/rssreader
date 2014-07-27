@@ -33,7 +33,6 @@
     [[self navigationItem]setHidesBackButton:YES];
     UIBarButtonItem *backButton=[[UIBarButtonItem alloc]initWithTitle:@"Назад" style:UIBarButtonItemStyleBordered target:self action:@selector(customBack)];
     [[self navigationItem]setLeftBarButtonItem:backButton];
-	// Do any additional setup after loading the view.
 }
 -(void)viewWillAppear:(BOOL)animated
 {
