@@ -47,10 +47,7 @@
     }
     return self;
 }
--(void)updateData:(UISwipeGestureRecognizer *)sender
-{
-    NSLog(@"update gesture");
-}
+
 -(void)viewDidAppear:(BOOL)animated
 {
     
@@ -107,10 +104,14 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
+	UIBarButtonItem *barBit=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(updateDataFromButton:)];
+    [[self navigationItem]setRightBarButtonItem:barBit animated:YES];
+//	[buttonReload ]
     [[self navigationItem]setTitle:@"Взгляд"];
     loadBegin=NO;
     [self loadContent];
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -119,7 +120,7 @@
 
 #pragma mark - uiscrollview delegate
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+-(void)updateDataFromButton:(id)sender
 {
     [self loadContent];
 }

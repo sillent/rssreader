@@ -13,7 +13,7 @@
 #import "DetailViewController.h"
 #import "BaseDumper.h"
 
-@interface ScreenOneViewController : UITableViewController <NSXMLParserDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate>
+@interface ScreenOneViewController : UITableViewController <NSXMLParserDelegate,UIAlertViewDelegate>
 
 @property (strong,nonatomic) UITableViewCell *tcell;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navItem;
@@ -23,6 +23,7 @@
 
 
 -(void)loadContent;
--(void)updateData:(UISwipeGestureRecognizer *)sender;
+
+-(void)updateDataFromButton:(id)sender;
 //-(BOOL)saveToBaseFrom:(NSDictionary *)dictionary;
 @end
