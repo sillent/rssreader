@@ -26,7 +26,6 @@
 		AF130E8218D1BF1A00DBFA86 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF130E8118D1BF1A00DBFA86 /* DetailViewController.m */; };
 		AF18599C197CFD9A009188B5 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AF18599B197CFD9A009188B5 /* libsqlite3.dylib */; };
 		AF18599F197D00DB009188B5 /* BaseDumper.m in Sources */ = {isa = PBXBuildFile; fileRef = AF18599E197D00DB009188B5 /* BaseDumper.m */; };
-		AF1BD8C31945CBEF001C44AE /* Items.m in Sources */ = {isa = PBXBuildFile; fileRef = AF1BD8C21945CBEF001C44AE /* Items.m */; };
 		AF3BE20F18C606DC00AADFAB /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3BE20E18C606DC00AADFAB /* Storyboard.storyboard */; };
 		AF3BE21218C6070400AADFAB /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3BE21118C6070400AADFAB /* MainViewController.m */; };
 		AF3BE21518C7128C00AADFAB /* ScreenOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3BE21418C7128C00AADFAB /* ScreenOneViewController.m */; };
@@ -68,8 +67,6 @@
 		AF18599B197CFD9A009188B5 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		AF18599D197D00DB009188B5 /* BaseDumper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseDumper.h; sourceTree = "<group>"; };
 		AF18599E197D00DB009188B5 /* BaseDumper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseDumper.m; sourceTree = "<group>"; };
-		AF1BD8C11945CBEF001C44AE /* Items.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Items.h; sourceTree = "<group>"; };
-		AF1BD8C21945CBEF001C44AE /* Items.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Items.m; sourceTree = "<group>"; };
 		AF3BE20E18C606DC00AADFAB /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		AF3BE21018C6070400AADFAB /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		AF3BE21118C6070400AADFAB /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -155,8 +152,6 @@
 				AF18599E197D00DB009188B5 /* BaseDumper.m */,
 				AF0934E018912BA70097368B /* Images.xcassets */,
 				AF0934DD18912BA70097368B /* RSSreader.xcdatamodeld */,
-				AF1BD8C11945CBEF001C44AE /* Items.h */,
-				AF1BD8C21945CBEF001C44AE /* Items.m */,
 				AF0934D218912BA70097368B /* Supporting Files */,
 			);
 			path = RSSreader;
@@ -294,7 +289,6 @@
 				AF3BE21518C7128C00AADFAB /* ScreenOneViewController.m in Sources */,
 				AF0934DC18912BA70097368B /* AppDelegate.m in Sources */,
 				AF0934D818912BA70097368B /* main.m in Sources */,
-				AF1BD8C31945CBEF001C44AE /* Items.m in Sources */,
 				AF18599F197D00DB009188B5 /* BaseDumper.m in Sources */,
 				AF130E7F18CF1AAD00DBFA86 /* Item.m in Sources */,
 				AF3BE21218C6070400AADFAB /* MainViewController.m in Sources */,
